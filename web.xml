@@ -1,0 +1,51 @@
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         version="5.0">
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
+
+    <!-- Servlet declarations -->
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.example.students.servlets.LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>StudentServlet</servlet-name>
+        <servlet-class>com.example.students.servlets.StudentServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>AddStudentServlet</servlet-name>
+        <servlet-class>com.example.students.servlets.AddStudentServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>AddStudentServlet</servlet-name>
+        <url-pattern>/AddStudentServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>StudentListServlet</servlet-name>
+        <servlet-class>com.example.students.servlets.StudentListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentListServlet</servlet-name>
+        <url-pattern>/StudentListServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>StudentServlet</servlet-name>
+        <url-pattern>/StudentServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>

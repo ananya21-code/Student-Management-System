@@ -1,0 +1,164 @@
+<html>
+<head>
+<title>addStudent.jsp</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #6aab73;}
+.s2 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+addStudent.jsp</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;%@ page contentType=</span><span class="s1">&quot;text/html; charset=UTF-8&quot; </span><span class="s0">pageEncoding=</span><span class="s1">&quot;UTF-8&quot;</span><span class="s0">%&gt;</span>
+<span class="s0">&lt;%@ taglib uri=</span><span class="s1">&quot;http://java.sun.com/jsp/jstl/core&quot; </span><span class="s0">prefix=</span><span class="s1">&quot;c&quot; </span><span class="s0">%&gt;</span>
+<span class="s0">&lt;!DOCTYPE html&gt;</span>
+<span class="s0">&lt;html lang=</span><span class="s1">&quot;en&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta charset=</span><span class="s1">&quot;UTF-8&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;meta name=</span><span class="s1">&quot;viewport&quot; </span><span class="s0">content=</span><span class="s1">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;title&gt;Update Student Details&lt;/title&gt;</span>
+    <span class="s0">&lt;script&gt;</span>
+        <span class="s0">// Function to fetch student details when the ID is entered</span>
+        <span class="s0">function fetchStudentDetails() {</span>
+            <span class="s0">let studentId = document.getElementById(</span><span class="s1">&quot;studentId&quot;</span><span class="s0">).value;</span>
+
+            <span class="s0">if (!studentId) {</span>
+                <span class="s0">// Clear fields if no ID is entered</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;currentFirstName&quot;</span><span class="s0">).innerText = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;currentLastName&quot;</span><span class="s0">).innerText = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;currentEmail&quot;</span><span class="s0">).innerText = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;currentPhone&quot;</span><span class="s0">).innerText = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;currentCourse&quot;</span><span class="s0">).innerText = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;firstName&quot;</span><span class="s0">).value = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;lastName&quot;</span><span class="s0">).value = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;email&quot;</span><span class="s0">).value = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;phone&quot;</span><span class="s0">).value = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;course&quot;</span><span class="s0">).value = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">document.getElementById(</span><span class="s1">&quot;age&quot;</span><span class="s0">).value = </span><span class="s1">''</span><span class="s0">;</span>
+                <span class="s0">return;</span>
+            <span class="s0">}</span>
+
+            <span class="s0">// Fetch the student details based on the entered student ID</span>
+            <span class="s0">fetch(`/getStudentById/${studentId}`)</span>
+                <span class="s0">.then(response =&gt; response.json())</span>
+                <span class="s0">.then(data =&gt; {</span>
+                    <span class="s0">if (data) {</span>
+                        <span class="s0">// Display student details in left column (non-editable)</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;currentFirstName&quot;</span><span class="s0">).innerText = data.firstName;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;currentLastName&quot;</span><span class="s0">).innerText = data.lastName;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;currentEmail&quot;</span><span class="s0">).innerText = data.email;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;currentPhone&quot;</span><span class="s0">).innerText = data.phone;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;currentCourse&quot;</span><span class="s0">).innerText = data.course;</span>
+
+                        <span class="s0">// Populate the editable fields with the student details</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;firstName&quot;</span><span class="s0">).value = data.firstName;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;lastName&quot;</span><span class="s0">).value = data.lastName;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;email&quot;</span><span class="s0">).value = data.email;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;phone&quot;</span><span class="s0">).value = data.phone;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;course&quot;</span><span class="s0">).value = data.course;</span>
+                        <span class="s0">document.getElementById(</span><span class="s1">&quot;age&quot;</span><span class="s0">).value = data.age;  // Pre-fill age field</span>
+                    <span class="s0">} else {</span>
+                        <span class="s0">alert(</span><span class="s1">&quot;Student not found&quot;</span><span class="s0">);</span>
+                    <span class="s0">}</span>
+                <span class="s0">})</span>
+                <span class="s0">.catch(error =&gt; console.error(</span><span class="s1">'Error fetching student details:'</span><span class="s0">, error));</span>
+        <span class="s0">}</span>
+    <span class="s0">&lt;/script&gt;</span>
+    <span class="s0">&lt;style&gt;</span>
+        <span class="s0">/* Styling for the left-right column layout */</span>
+        <span class="s0">.container {</span>
+            <span class="s0">display: flex;</span>
+            <span class="s0">justify-content: space-between;</span>
+            <span class="s0">margin-top: </span><span class="s2">20</span><span class="s0">px;</span>
+        <span class="s0">}</span>
+        <span class="s0">.left-column, .right-column {</span>
+            <span class="s0">width: </span><span class="s2">45</span><span class="s0">%;</span>
+        <span class="s0">}</span>
+        <span class="s0">.left-column {</span>
+            <span class="s0">border-right: </span><span class="s2">1</span><span class="s0">px solid #ccc;</span>
+            <span class="s0">padding-right: </span><span class="s2">20</span><span class="s0">px;</span>
+        <span class="s0">}</span>
+        <span class="s0">.right-column {</span>
+            <span class="s0">padding-left: </span><span class="s2">20</span><span class="s0">px;</span>
+        <span class="s0">}</span>
+        <span class="s0">.form-group {</span>
+            <span class="s0">margin-bottom: </span><span class="s2">15</span><span class="s0">px;</span>
+        <span class="s0">}</span>
+    <span class="s0">&lt;/style&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+    <span class="s0">&lt;h2&gt;Update Student Details&lt;/h2&gt;</span>
+
+    <span class="s0">&lt;!-- Input field to enter student ID --&gt;</span>
+    <span class="s0">&lt;div&gt;</span>
+        <span class="s0">&lt;label for=</span><span class="s1">&quot;studentId&quot;</span><span class="s0">&gt;Enter Student ID:&lt;/label&gt;</span>
+        <span class="s0">&lt;input type=</span><span class="s1">&quot;text&quot; </span><span class="s0">id=</span><span class="s1">&quot;studentId&quot; </span><span class="s0">name=</span><span class="s1">&quot;id&quot; </span><span class="s0">oninput=</span><span class="s1">&quot;fetchStudentDetails()&quot; </span><span class="s0">required&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;!-- Container for left and right columns --&gt;</span>
+    <span class="s0">&lt;div class=</span><span class="s1">&quot;container&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;!-- Left Column: Non-editable Student Details --&gt;</span>
+        <span class="s0">&lt;div class=</span><span class="s1">&quot;left-column&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;h3&gt;Current Student Details&lt;/h3&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;First Name:&lt;/strong&gt; &lt;span id=</span><span class="s1">&quot;currentFirstName&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;Last Name:&lt;/strong&gt; &lt;span id=</span><span class="s1">&quot;currentLastName&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;Email:&lt;/strong&gt; &lt;span id=</span><span class="s1">&quot;currentEmail&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;Phone:&lt;/strong&gt; &lt;span id=</span><span class="s1">&quot;currentPhone&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;Course:&lt;/strong&gt; &lt;span id=</span><span class="s1">&quot;currentCourse&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+
+        <span class="s0">&lt;!-- Right Column: Editable Fields --&gt;</span>
+        <span class="s0">&lt;div class=</span><span class="s1">&quot;right-column&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;h3&gt;Edit Student Details&lt;/h3&gt;</span>
+            <span class="s0">&lt;form action=</span><span class="s1">&quot;UpdateStudentServlet&quot; </span><span class="s0">method=</span><span class="s1">&quot;post&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;input type=</span><span class="s1">&quot;hidden&quot; </span><span class="s0">id=</span><span class="s1">&quot;studentIdInput&quot; </span><span class="s0">name=</span><span class="s1">&quot;id&quot;</span><span class="s0">&gt;</span>
+
+                <span class="s0">&lt;!-- Editable fields to update --&gt;</span>
+                <span class="s0">&lt;div class=</span><span class="s1">&quot;form-group&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label for=</span><span class="s1">&quot;firstName&quot;</span><span class="s0">&gt;First Name:&lt;/label&gt;</span>
+                    <span class="s0">&lt;input type=</span><span class="s1">&quot;text&quot; </span><span class="s0">id=</span><span class="s1">&quot;firstName&quot; </span><span class="s0">name=</span><span class="s1">&quot;firstName&quot; </span><span class="s0">required/&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div class=</span><span class="s1">&quot;form-group&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label for=</span><span class="s1">&quot;lastName&quot;</span><span class="s0">&gt;Last Name:&lt;/label&gt;</span>
+                    <span class="s0">&lt;input type=</span><span class="s1">&quot;text&quot; </span><span class="s0">id=</span><span class="s1">&quot;lastName&quot; </span><span class="s0">name=</span><span class="s1">&quot;lastName&quot; </span><span class="s0">required/&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div class=</span><span class="s1">&quot;form-group&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label for=</span><span class="s1">&quot;email&quot;</span><span class="s0">&gt;Email:&lt;/label&gt;</span>
+                    <span class="s0">&lt;input type=</span><span class="s1">&quot;email&quot; </span><span class="s0">id=</span><span class="s1">&quot;email&quot; </span><span class="s0">name=</span><span class="s1">&quot;email&quot; </span><span class="s0">required/&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div class=</span><span class="s1">&quot;form-group&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label for=</span><span class="s1">&quot;phone&quot;</span><span class="s0">&gt;Phone:&lt;/label&gt;</span>
+                    <span class="s0">&lt;input type=</span><span class="s1">&quot;text&quot; </span><span class="s0">id=</span><span class="s1">&quot;phone&quot; </span><span class="s0">name=</span><span class="s1">&quot;phone&quot; </span><span class="s0">required/&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;div class=</span><span class="s1">&quot;form-group&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label for=</span><span class="s1">&quot;course&quot;</span><span class="s0">&gt;Course:&lt;/label&gt;</span>
+                    <span class="s0">&lt;input type=</span><span class="s1">&quot;text&quot; </span><span class="s0">id=</span><span class="s1">&quot;course&quot; </span><span class="s0">name=</span><span class="s1">&quot;course&quot; </span><span class="s0">required/&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;!-- Age field is now a text input --&gt;</span>
+                <span class="s0">&lt;div class=</span><span class="s1">&quot;form-group&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label for=</span><span class="s1">&quot;age&quot;</span><span class="s0">&gt;Age:&lt;/label&gt;</span>
+                    <span class="s0">&lt;input type=</span><span class="s1">&quot;text&quot; </span><span class="s0">id=</span><span class="s1">&quot;age&quot; </span><span class="s0">name=</span><span class="s1">&quot;age&quot; </span><span class="s0">required/&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+
+                <span class="s0">&lt;button type=</span><span class="s1">&quot;submit&quot;</span><span class="s0">&gt;Update Student&lt;/button&gt;</span>
+            <span class="s0">&lt;/form&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;br/&gt;</span>
+    <span class="s0">&lt;a href=</span><span class="s1">&quot;&lt;c:url value='/students' /&gt;&quot;</span><span class="s0">&gt;Back to Student List&lt;/a&gt;</span>
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>
